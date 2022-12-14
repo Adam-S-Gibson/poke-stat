@@ -1,10 +1,10 @@
-import { Container, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { Logo } from "./Logo";
 import { PokemonSearch } from "./PokemonSearch";
 
 export const Header = () => {
   return (
-    <Container>
+    <Box sx={{ flexGrow: 1 }}>
       <Grid
         container
         spacing={2}
@@ -19,6 +19,6 @@ export const Header = () => {
           <PokemonSearch />
         </Grid>
       </Grid>
-    </Container>
+    </Box>
   );
 };

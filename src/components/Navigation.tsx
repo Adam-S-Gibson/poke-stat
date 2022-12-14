@@ -1,9 +1,9 @@
-import { Button, Container, Grid } from "@mui/material";
+import { Button, Box, Grid } from "@mui/material";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 
 export const Navigation = () => {
   return (
-    <Container>
+    <Box>
       <Grid container>
         <Grid item xs={6}>
           <Button variant="contained" startIcon={<ArrowBack />}>
@@ -11,11 +11,11 @@ export const Navigation = () => {
           </Button>
         </Grid>
         <Grid item xs={6}>
-          <Button variant="contained" startIcon={<ArrowForward />}>
+          <Button variant="contained" endIcon={<ArrowForward />}>
             Next
           </Button>
         </Grid>
       </Grid>
-    </Container>
+    </Box>
   );
 };
