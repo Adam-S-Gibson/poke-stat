@@ -54,37 +54,37 @@ export interface Sprites {
 }
 export interface Other {
   dream_world: DreamWorldOrIcons;
-  home: HomeOrOmegaruby-alphasapphireOrX-yOrUltra-sun-ultra-moon;
-  official-artwork: Official-artwork;
+  home: HomeOrOmegarubyAlphasapphireOrXYOrUltraSunUltraMoon;
+  officialArtwork: OfficialArtwork;
 }
 export interface DreamWorldOrIcons {
   front_default: string;
   front_female?: null;
 }
-export interface HomeOrOmegaruby-alphasapphireOrX-yOrUltra-sun-ultra-moon {
+export interface HomeOrOmegarubyAlphasapphireOrXYOrUltraSunUltraMoon {
   front_default: string;
   front_female?: null;
   front_shiny: string;
   front_shiny_female?: null;
 }
-export interface Official-artwork {
+export interface OfficialArtwork {
   front_default: string;
 }
 export interface Versions {
-  generation-i: Generation-i;
-  generation-ii: Generation-ii;
-  generation-iii: Generation-iii;
-  generation-iv: Generation-iv;
-  generation-v: Generation-v;
-  generation-vi: Generation-vi;
-  generation-vii: Generation-vii;
-  generation-viii: Generation-viii;
+  generationi: Generationi;
+  generationii: Generationii;
+  generationiii: Generationiii;
+  generationiv: Generationiv;
+  generationv: Generationv;
+  generationvi: Generationvi;
+  generationvii: Generationvii;
+  generationviii: Generationviii;
 }
-export interface Generation-i {
-  red-blue: Red-blueOrYellow;
-  yellow: Red-blueOrYellow;
+export interface Generationi {
+  redblue: RedblueOrYellow;
+  yellow: RedblueOrYellow;
 }
-export interface Red-blueOrYellow {
+export interface RedblueOrYellow {
   back_default: string;
   back_gray: string;
   back_transparent: string;
@@ -92,7 +92,7 @@ export interface Red-blueOrYellow {
   front_gray: string;
   front_transparent: string;
 }
-export interface Generation-ii {
+export interface Generationii {
   crystal: Crystal;
   gold: GoldOrSilver;
   silver: GoldOrSilver;
@@ -114,41 +114,27 @@ export interface GoldOrSilver {
   front_shiny: string;
   front_transparent: string;
 }
-export interface Generation-iii {
+export interface Generationiii {
   emerald: Emerald;
-  firered-leafgreen: Firered-leafgreenOrRuby-sapphire;
-  ruby-sapphire: Firered-leafgreenOrRuby-sapphire;
+  fireredleafgreen: FireredleafgreenOrRubysapphire;
+  rubysapphire: FireredleafgreenOrRubysapphire;
 }
 export interface Emerald {
   front_default: string;
   front_shiny: string;
 }
-export interface Firered-leafgreenOrRuby-sapphire {
+export interface FireredleafgreenOrRubysapphire {
   back_default: string;
   back_shiny: string;
   front_default: string;
   front_shiny: string;
 }
-export interface Generation-iv {
-  diamond-pearl: Diamond-pearlOrHeartgold-soulsilverOrPlatinumOrAnimated;
-  heartgold-soulsilver: Diamond-pearlOrHeartgold-soulsilverOrPlatinumOrAnimated;
-  platinum: Diamond-pearlOrHeartgold-soulsilverOrPlatinumOrAnimated;
+export interface Generationiv {
+  diamondpearl: DiamondpearlOrHeartgoldsoulsilverOrPlatinumOrAnimated;
+  heartgoldsoulsilver: DiamondpearlOrHeartgoldsoulsilverOrPlatinumOrAnimated;
+  platinum: DiamondpearlOrHeartgoldsoulsilverOrPlatinumOrAnimated;
 }
-export interface Diamond-pearlOrHeartgold-soulsilverOrPlatinumOrAnimated {
-  back_default: string;
-  back_female?: null;
-  back_shiny: string;
-  back_shiny_female?: null;
-  front_default: string;
-  front_female?: null;
-  front_shiny: string;
-  front_shiny_female?: null;
-}
-export interface Generation-v {
-  black-white: Black-white;
-}
-export interface Black-white {
-  animated: Diamond-pearlOrHeartgold-soulsilverOrPlatinumOrAnimated;
+export interface DiamondpearlOrHeartgoldsoulsilverOrPlatinumOrAnimated {
   back_default: string;
   back_female?: null;
   back_shiny: string;
@@ -158,15 +144,29 @@ export interface Black-white {
   front_shiny: string;
   front_shiny_female?: null;
 }
-export interface Generation-vi {
-  omegaruby-alphasapphire: HomeOrOmegaruby-alphasapphireOrX-yOrUltra-sun-ultra-moon;
-  x-y: HomeOrOmegaruby-alphasapphireOrX-yOrUltra-sun-ultra-moon;
+export interface Generationv {
+  blackwhite: Blackwhite;
 }
-export interface Generation-vii {
+export interface Blackwhite {
+  animated: DiamondpearlOrHeartgoldsoulsilverOrPlatinumOrAnimated;
+  back_default: string;
+  back_female?: null;
+  back_shiny: string;
+  back_shiny_female?: null;
+  front_default: string;
+  front_female?: null;
+  front_shiny: string;
+  front_shiny_female?: null;
+}
+export interface Generationvi {
+  omegarubyalphasapphire: HomeOrOmegarubyAlphasapphireOrXYOrUltraSunUltraMoon;
+  xy: HomeOrOmegarubyAlphasapphireOrXYOrUltraSunUltraMoon;
+}
+export interface Generationvii {
   icons: DreamWorldOrIcons;
-  ultra-sun-ultra-moon: HomeOrOmegaruby-alphasapphireOrX-yOrUltra-sun-ultra-moon;
+  ultrasunultramoon: HomeOrOmegarubyAlphasapphireOrXYOrUltraSunUltraMoon;
 }
-export interface Generation-viii {
+export interface Generationviii {
   icons: DreamWorldOrIcons;
 }
 export interface StatsEntity {
