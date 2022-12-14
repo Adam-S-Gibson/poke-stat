@@ -3,7 +3,6 @@ import { Container, Grid } from "@mui/material";
 import { Header } from "./components/Header";
 import { Navigation } from "./components/Navigation";
 import { PokemonStatBlock } from "./components/PokemonStatBlock";
-import { useEffect, useState } from "react";
 
 function App() {
   return (
