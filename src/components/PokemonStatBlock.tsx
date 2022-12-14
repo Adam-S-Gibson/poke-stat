@@ -29,18 +29,16 @@ export const PokemonStatBlock = () => {
     <Box
       sx={{
         flexGrow: 1,
-        alignItems: "center",
-        justifyContent: "center",
       }}
     >
       <Grid
         container
-        justifyContent="center"
-        alignItems="center"
         spacing={2}
         direction="row"
+        alignItems="center"
+        justifyContent="center"
       >
-        <Grid item xs={6}>
+        <Grid item sm>
           <Image
             src={
               pokemon !== undefined
@@ -67,7 +65,7 @@ export const PokemonStatBlock = () => {
             {_.capitalize(pokemon?.name)}
           </Typography>
         </Grid>
-        <Grid item xs={6} justifyContent={"center"}>
+        <Grid item sm>
           <Typography variant="subtitle1">
             Type:{" "}
             {pokemon &&
