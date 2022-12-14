@@ -1,6 +1,7 @@
 import { Box, Grid } from "@mui/material";
 import { Logo } from "./Logo";
 import { PokemonSearch } from "./PokemonSearch";
+import { Navigation } from "./Navigation";
 
 export const Header = () => {
   return (
@@ -12,11 +13,14 @@ export const Header = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Grid item xs={4}>
+        <Grid item sm>
           <Logo />
         </Grid>
-        <Grid item xs={8}>
+        <Grid item sm>
           <PokemonSearch />
+        </Grid>
+        <Grid item md>
+          <Navigation />
         </Grid>
       </Grid>
     </Box>
