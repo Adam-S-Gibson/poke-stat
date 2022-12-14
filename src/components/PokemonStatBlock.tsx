@@ -1,6 +1,7 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import { pokemonStatBlock } from "../interfaces/pokemonStatBlock";
+import Image from "mui-image";
 import _ from "lodash";
 
 export const PokemonStatBlock = () => {
@@ -10,7 +11,7 @@ export const PokemonStatBlock = () => {
 
   const fetchData = async () => {
     const pokemonFetch: Response = await fetch(
-      "https://pokeapi.co/api/v2/pokemon/1"
+      "https://pokeapi.co/api/v2/pokemon/662"
     );
     return pokemonFetch.json();
   };
@@ -25,17 +26,38 @@ export const PokemonStatBlock = () => {
   }, []);
 
   return (
-    <Container sx={{ height: "80vh" }}>
-      <Grid container spacing={2} direction="row">
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
+        direction="row"
+      >
         <Grid item xs={6}>
-          <img
+          <Image
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon?.id}.png`}
-            height={"300rem"}
-            alt=""
+            height="75%"
+            width="75%"
+            fit="contain"
+            duration={1500}
+            easing="linear"
+            showLoading={false}
+            errorIcon={true}
+            shift={null}
+            distance="100px"
+            shiftDuration={900}
+            bgColor="inherit"
           />
+          <Typography
+            sx={{ typography: { sm: "h2", xs: "h5" } }}
+            gutterBottom
+            variant="h1"
+          >
+            {_.capitalize(pokemon?.name)}
+          </Typography>
         </Grid>
         <Grid item xs={6}>
-          <Typography variant="h1">{_.capitalize(pokemon?.name)}</Typography>
           <Typography variant="subtitle1">
             Type:{" "}
             {pokemon &&
@@ -53,8 +75,17 @@ export const PokemonStatBlock = () => {
                 {_.capitalize(stat.stat.name)}: {stat.base_stat}
               </Typography>
             ))}
+          {pokemon && (
+            <Typography variant="subtitle1">
+              Stat Total:{" "}
+              {pokemon.stats?.reduce(
+                (partialSum, a) => partialSum + a.base_stat,
+                0
+              )}
+            </Typography>
+          )}
         </Grid>
       </Grid>
-    </Container>
+    </Box>
   );
 };
