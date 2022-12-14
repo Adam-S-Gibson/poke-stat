@@ -1,12 +1,14 @@
-import "./App.css";
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { Header } from "./components/Header";
 import { Navigation } from "./components/Navigation";
 import { PokemonStatBlock } from "./components/PokemonStatBlock";
 
 function App() {
   return (
-    <Box className="App" sx={{ flexGrow: 1 }}>
+    <Box
+      className="App"
+      sx={{ flexGrow: 1, margin: "auto", maxWidth: "1200px" }}
+    >
       <Grid container direction="column" spacing={2}>
         <Grid item>
           <Header />
@@ -14,10 +16,8 @@ function App() {
         <Grid item>
           <PokemonStatBlock />
         </Grid>
-        <Grid item>
-          <Navigation />
-        </Grid>
       </Grid>
+      <Navigation />
     </Box>
   );
 }

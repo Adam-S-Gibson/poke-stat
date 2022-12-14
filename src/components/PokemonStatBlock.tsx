@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import { pokemonStatBlock } from "../interfaces/pokemonStatBlock";
 import Image from "mui-image";
@@ -26,7 +26,13 @@ export const PokemonStatBlock = () => {
   }, []);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Grid
         container
         justifyContent="center"
@@ -36,7 +42,11 @@ export const PokemonStatBlock = () => {
       >
         <Grid item xs={6}>
           <Image
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon?.id}.png`}
+            src={
+              pokemon !== undefined
+                ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon?.id}.png`
+                : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png`
+            }
             height="75%"
             width="75%"
             fit="contain"
@@ -50,21 +60,24 @@ export const PokemonStatBlock = () => {
             bgColor="inherit"
           />
           <Typography
-            sx={{ typography: { sm: "h2", xs: "h5" } }}
+            sx={{ typography: { md: "h2", sm: "h4", xs: "h6" } }}
             gutterBottom
             variant="h1"
           >
             {_.capitalize(pokemon?.name)}
           </Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} justifyContent={"center"}>
           <Typography variant="subtitle1">
             Type:{" "}
             {pokemon &&
               pokemon.types?.map((type, index) => (
                 <span key={`${type}_${index}`}>
                   {" "}
-                  {_.capitalize(type.type.name)}
+                  <img
+                    src={`https://serebii.net/pokedex-bw/type/${type.type.name}.gif`}
+                    alt="Pokemon Type"
+                  />
                 </span>
               ))}
           </Typography>
