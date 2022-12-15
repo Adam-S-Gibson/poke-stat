@@ -13,13 +13,13 @@ export const Header = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Grid item sm>
+        <Grid item>
           <Logo />
         </Grid>
-        <Grid item sm>
+        <Grid item>
           <PokemonSearch />
         </Grid>
-        <Grid item md>
+        <Grid item>
           <Navigation />
         </Grid>
       </Grid>

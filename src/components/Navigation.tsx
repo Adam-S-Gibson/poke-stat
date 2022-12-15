@@ -5,12 +5,12 @@ export const Navigation = () => {
   return (
     <Box>
       <Grid container spacing={2}>
-        <Grid item xs>
+        <Grid item>
           <Button variant="contained" startIcon={<ArrowBack />}>
             Prev
           </Button>
         </Grid>
-        <Grid item xs>
+        <Grid item>
           <Button variant="contained" endIcon={<ArrowForward />}>
             Next
           </Button>
