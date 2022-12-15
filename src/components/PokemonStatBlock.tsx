@@ -38,7 +38,16 @@ export const PokemonStatBlock = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Grid item sm>
+        <Grid
+          item
+          sm
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Image
             src={
               pokemon !== undefined
@@ -50,7 +59,7 @@ export const PokemonStatBlock = () => {
             fit="contain"
             duration={1500}
             easing="linear"
-            showLoading={false}
+            showLoading={true}
             errorIcon={true}
             shift={null}
             distance="100px"
@@ -58,7 +67,10 @@ export const PokemonStatBlock = () => {
             bgColor="inherit"
           />
           <Typography
-            sx={{ typography: { md: "h2", sm: "h4", xs: "h6" } }}
+            sx={{
+              typography: { xl: "h5", sm: "h4", xs: "h6" },
+              fontSize: { xl: "5rem", lg: "3rem", xs: "1rem" },
+            }}
             gutterBottom
             variant="h1"
           >
@@ -66,28 +78,63 @@ export const PokemonStatBlock = () => {
           </Typography>
         </Grid>
         <Grid item sm>
-          <Typography variant="subtitle1">
-            Type:{" "}
+          <Box
+            sx={{
+              display: "flex",
+              gap: "1rem",
+              alignItems: "center",
+            }}
+          >
+            <Typography
+              variant="h1"
+              sx={{
+                typography: { md: "h5", sm: "body1", xs: "subtitle1" },
+                fontSize: { xl: "4rem", lg: "2rem", xs: "1rem" },
+              }}
+            >
+              Type:{" "}
+            </Typography>
             {pokemon &&
               pokemon.types?.map((type, index) => (
-                <span key={`${type}_${index}`}>
-                  {" "}
-                  <img
-                    src={`https://serebii.net/pokedex-bw/type/${type.type.name}.gif`}
-                    alt="Pokemon Type"
-                  />
-                </span>
+                <Image
+                  key={`${type}_${index}`}
+                  src={`https://serebii.net/pokedex-bw/type/${type.type.name}.gif`}
+                  alt="Pokemon Type"
+                  width={"3em"}
+                  fit="contain"
+                  duration={1500}
+                  easing="linear"
+                  showLoading={true}
+                  errorIcon={true}
+                  shift={null}
+                  distance="100px"
+                  shiftDuration={900}
+                  bgColor="inherit"
+                />
               ))}
-          </Typography>
+          </Box>
 
           {pokemon &&
             pokemon.stats?.map((stat, index) => (
-              <Typography key={`${stat}_${index}`} variant="subtitle1">
+              <Typography
+                key={`${stat}_${index}`}
+                variant="h1"
+                sx={{
+                  typography: { md: "h5", sm: "body1", xs: "subtitle1" },
+                  fontSize: { xl: "4rem", lg: "2rem", xs: "1rem" },
+                }}
+              >
                 {_.capitalize(stat.stat.name)}: {stat.base_stat}
               </Typography>
             ))}
           {pokemon && (
-            <Typography variant="subtitle1">
+            <Typography
+              variant="h1"
+              sx={{
+                typography: { md: "h5", sm: "body1", xs: "subtitle1" },
+                fontSize: { xl: "4rem", lg: "2rem", xs: "1rem" },
+              }}
+            >
               Stat Total:{" "}
               {pokemon.stats?.reduce(
                 (partialSum, a) => partialSum + a.base_stat,
