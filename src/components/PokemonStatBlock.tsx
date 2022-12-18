@@ -1,29 +1,32 @@
 import { Box, Grid, Typography } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { pokemonStatBlock } from "../interfaces/pokemonStatBlock";
 import Image from "mui-image";
 import _ from "lodash";
+import { pokemonContext } from "../Providers/PokemonProvider";
 
 export const PokemonStatBlock = () => {
   const [pokemon, setPokemon] = useState<pokemonStatBlock | undefined>(
     undefined
   );
 
-  const fetchData = async () => {
+  const { currentPokemon, setCurrentPokemon } = useContext(pokemonContext);
+
+  const fetchData = async (pokemonToSearch: number) => {
     const pokemonFetch: Response = await fetch(
-      "https://pokeapi.co/api/v2/pokemon/662"
+      `https://pokeapi.co/api/v2/pokemon/${pokemonToSearch}`
     );
     return pokemonFetch.json();
   };
 
   useEffect(() => {
-    fetchData()
+    fetchData(currentPokemon)
       .then((pokemon) => {
         setPokemon(pokemon);
       })
       .catch(console.error);
     console.log(pokemon);
-  }, []);
+  }, [currentPokemon]);
 
   return (
     <Box
