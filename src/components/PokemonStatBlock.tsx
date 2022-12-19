@@ -25,7 +25,6 @@ export const PokemonStatBlock = () => {
         setPokemon(pokemon);
       })
       .catch(console.error);
-    console.log(pokemon);
   }, [currentPokemon]);
 
   return (
