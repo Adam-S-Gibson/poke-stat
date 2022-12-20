@@ -27,8 +27,14 @@ export const PokemonSearch = () => {
           method: "POST",
           headers: {},
           body: JSON.stringify({
-            query:
-              "query samplePokeAPIquery {\n  pokemon_v2_pokemon {\n      id\n    	name\n    }\n}\n",
+            query: `query samplePokeAPIquery {
+              pokemon_v2_pokemon(order_by: {pokemon_species_id: asc, id: asc}, distinct_on: pokemon_species_id) {
+                name
+                id
+                pokemon_species_id
+              }
+            }
+            `,
             variables: {},
           }),
         });

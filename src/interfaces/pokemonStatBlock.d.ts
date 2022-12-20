@@ -7,6 +7,7 @@ export interface Data {
 }
 
 export interface PokemonV2Pokemon {
+  pokemon_species_id: number
   id: number
   name: string
   pokemon_v2_pokemonstats: PokemonV2Pokemonstat[]
