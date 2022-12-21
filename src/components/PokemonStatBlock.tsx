@@ -64,30 +64,19 @@ export const PokemonStatBlock = () => {
         flexGrow: 1,
       }}
     >
-      <Grid
-        container
-        spacing={2}
-        direction="row"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Grid
-          item
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+      <Grid container spacing={2} alignItems="center" justifyContent="center">
+        <Grid item>
           <Grid item>
             {pokemon && (
-              <Forms forms={pokemon?.data.pokemon_v2_pokemon.slice(0, 1)} />
+              <Forms
+                pokemon_v2_pokemon={pokemon?.data.pokemon_v2_pokemon.slice(
+                  0,
+                  1
+                )}
+              />
             )}
           </Grid>
         </Grid>
-        <Grid item>{pokemon && <Stats data={pokemon.data} />}</Grid>
-
         <Grid item>
           {pokemon && pokemon?.data.pokemon_v2_pokemon.length > 1 && (
             <>
@@ -102,8 +91,10 @@ export const PokemonStatBlock = () => {
               >
                 Alternative Forms
               </Typography>
-              <Divider sx={{ margin: 2 }} variant="middle" />
-              <Forms forms={pokemon?.data.pokemon_v2_pokemon.slice(1)} />
+              <Divider sx={{ margin: 2, marginBottom: 4 }} variant="middle" />
+              <Forms
+                pokemon_v2_pokemon={pokemon?.data.pokemon_v2_pokemon.slice(1)}
+              />
             </>
           )}
         </Grid>

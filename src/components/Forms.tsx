@@ -1,15 +1,10 @@
 import { Box, Grid, Typography } from "@mui/material";
 import _ from "lodash";
 import Image from "mui-image";
+import { Data } from "../interfaces/pokemonStatBlock";
+import { Stats } from "./Stats";
 
-interface pokemonForms {
-  forms: {
-    name: string;
-    id: number;
-  }[];
-}
-
-export const Forms = ({ forms }: pokemonForms) => {
+export const Forms = ({ pokemon_v2_pokemon }: Data) => {
   return (
     <Box
       sx={{
@@ -20,47 +15,66 @@ export const Forms = ({ forms }: pokemonForms) => {
     >
       <Grid
         container
-        spacing={2}
+        spacing={3}
+        gap={4}
         direction="row"
         alignItems="center"
         justifyContent="center"
       >
-        {forms.map((form, index) => (
-          <Grid
-            item
-            key={`${form.id}_${index}`}
+        {pokemon_v2_pokemon.map((form, index) => (
+          <Box
             sx={{
               display: "flex",
-              flexDirection: "column",
               alignItems: "center",
-              justifyContent: "center",
+              gap: 3,
+              flexDirection: { xs: "column", sm: "row" },
             }}
+            key={`${form.id}_${index}`}
           >
-            <Image
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${form.id}.png`}
-              height="75%"
-              width="75%"
-              fit="contain"
-              duration={1500}
-              easing="linear"
-              showLoading={true}
-              errorIcon={true}
-              shift={null}
-              distance="100px"
-              shiftDuration={900}
-              bgColor="inherit"
-            />
-            <Typography
+            <Grid
+              item
               sx={{
-                typography: { xl: "h5", sm: "h4", xs: "h6" },
-                fontSize: { xl: "5rem", lg: "3rem", xs: "1rem" },
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 2,
               }}
-              gutterBottom
-              variant="h1"
             >
-              {_.capitalize(form.name)}
-            </Typography>
-          </Grid>
+              <Image
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${form.id}.png`}
+                height="75%"
+                width="75%"
+                fit="contain"
+                duration={1500}
+                easing="linear"
+                showLoading={true}
+                errorIcon={true}
+                shift={null}
+                distance="100px"
+                shiftDuration={900}
+                bgColor="inherit"
+              />
+              <Typography
+                sx={{
+                  typography: { xl: "h5", sm: "h4", xs: "h6" },
+                  fontSize: { xl: "5rem", lg: "3rem", xs: "1rem" },
+                }}
+                gutterBottom
+                variant="h1"
+              >
+                {_.capitalize(form.name)}
+              </Typography>
+            </Grid>
+            <Grid item>
+              {pokemon_v2_pokemon && (
+                <Stats
+                  pokemon_v2_pokemonstats={form.pokemon_v2_pokemonstats}
+                  pokemon_v2_pokemontypes={form.pokemon_v2_pokemontypes}
+                />
+              )}
+            </Grid>
+          </Box>
         ))}
       </Grid>
     </Box>

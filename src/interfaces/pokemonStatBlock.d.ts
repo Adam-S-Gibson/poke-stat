@@ -14,6 +14,11 @@ export interface PokemonV2Pokemon {
   pokemon_v2_pokemontypes: PokemonV2Pokemontype[]
 }
 
+export interface PokemonBattleInfo {
+  pokemon_v2_pokemonstats: PokemonV2Pokemonstat[]
+  pokemon_v2_pokemontypes: PokemonV2Pokemontype[]
+}
+
 export interface PokemonV2Pokemonstat {
   base_stat: number
   pokemon_v2_stat: PokemonV2Stat
