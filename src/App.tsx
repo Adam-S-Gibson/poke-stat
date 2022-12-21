@@ -9,10 +9,7 @@ function App() {
 
   return (
     <pokemonContext.Provider value={{ currentPokemon, setCurrentPokemon }}>
-      <Box
-        className="App"
-        sx={{ flexGrow: 1, margin: "auto", maxWidth: "70%" }}
-      >
+      <Box className="App" sx={{ flexGrow: 1, margin: "auto" }}>
         <Grid container direction="column" spacing={2}>
           <Grid item>
             <Header />
