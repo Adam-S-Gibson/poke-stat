@@ -8,7 +8,11 @@ interface PokemonList {
   name: string;
 }
 
-export const PokemonSearch = () => {
+interface SearchProps {
+  max: number;
+}
+
+export const PokemonSearch = ({ max }: SearchProps) => {
   const { currentPokemon, setCurrentPokemon } = useContext(pokemonContext);
   const [open, setOpen] = useState<boolean>(false);
   const [options, setOptions] = useState<readonly PokemonList[]>([]);
@@ -28,12 +32,12 @@ export const PokemonSearch = () => {
           headers: {},
           body: JSON.stringify({
             query: `query samplePokeAPIquery {
-              pokemon_v2_pokemon(order_by: {pokemon_species_id: asc, id: asc}, distinct_on: pokemon_species_id) {
-                name
-                id
-                pokemon_species_id
-              }
-            }
+                      pokemon_v2_pokemon(distinct_on: id, limit: ${max}) {
+                        name
+                        id
+                        pokemon_species_id
+                      }
+                    }
             `,
             variables: {},
           }),
