@@ -172,7 +172,7 @@ export function SearchBar() {
           {"Select Pokemon..."}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-96 max-h-96 p-0 overflow-y-scroll ">
+      <PopoverContent className="w-full sm:w-96 max-h-96 p-0 overflow-y-scroll mx-auto">
         <Command>
           <CommandInput placeholder="Search Pokemon..." />
           <CommandEmpty>No pokemon found.</CommandEmpty>
