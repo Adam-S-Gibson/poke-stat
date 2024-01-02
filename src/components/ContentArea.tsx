@@ -79,8 +79,8 @@ export const ContentArea = () => {
           setMax(response.data.pokemonCount.aggregate.count);
 
           const fetchedPokemonAltForms = response.data.pokemon.forms
-            .filter((form) => form.form_name !== "")
-            .map((form) => {
+            .filter((form: { form_name: string }) => form.form_name !== "")
+            .map((form: { pokemonInfo: any; form_name: string }) => {
               const pokemonInfo = form.pokemonInfo;
               const spritesJson = JSON.parse(
                 pokemonInfo.pokemonSprite[0].sprites

@@ -5,7 +5,7 @@ import { useState } from "react";
 
 function App() {
   const [currentPokemon, setCurrentPokemon] = useState<number>(1);
-  const [max, setMax] = useState<number>(1);
+  const [max, setMax] = useState<number>(1000);
 
   return (
     <PokemonContext.Provider
