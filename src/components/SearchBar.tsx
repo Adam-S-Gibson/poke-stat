@@ -130,7 +130,7 @@ export function SearchBar() {
       });
 
       if (response.ok) {
-        let result = await response.json();
+        const result = await response.json();
         return result.data.pokemonList;
       }
     } catch (err) {

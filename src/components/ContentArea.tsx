@@ -62,7 +62,7 @@ export const ContentArea = () => {
       });
 
       if (response.ok) {
-        let result = await response.json();
+        const result = await response.json();
         return result;
       }
     } catch (err) {
