@@ -82,9 +82,7 @@ export const ContentArea = () => {
             .filter((form: { form_name: string }) => form.form_name !== "")
             .map((form: { pokemonInfo: any; form_name: string }) => {
               const pokemonInfo = form.pokemonInfo;
-              const spritesJson = JSON.parse(
-                pokemonInfo.pokemonSprite[0].sprites
-              );
+              const spritesJson = pokemonInfo.pokemonSprite[0].sprites;
 
               const officialArtwork = spritesJson.other["official-artwork"];
               const updatedSprites = {
@@ -109,9 +107,8 @@ export const ContentArea = () => {
           }
 
           if (fetchedPokemon.pokemonSprite.length > 0) {
-            const spritesJson = JSON.parse(
-              fetchedPokemon.pokemonSprite[0].sprites
-            );
+            console.log(fetchedPokemon);
+            const spritesJson = fetchedPokemon.pokemonSprite[0].sprites;
             const officialArtwork = spritesJson.other["official-artwork"];
             const updatedSprites = {
               ...spritesJson,
