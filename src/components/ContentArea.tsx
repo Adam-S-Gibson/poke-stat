@@ -107,7 +107,6 @@ export const ContentArea = () => {
           }
 
           if (fetchedPokemon.pokemonSprite.length > 0) {
-            console.log(fetchedPokemon);
             const spritesJson = fetchedPokemon.pokemonSprite[0].sprites;
             const officialArtwork = spritesJson.other["official-artwork"];
             const updatedSprites = {
