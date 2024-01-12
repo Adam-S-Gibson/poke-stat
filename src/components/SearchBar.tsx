@@ -21,44 +21,47 @@ export const NavigationBar = () => {
     <div className="p-2 w-full max-w-screen-lg">
       <div className="flex items-center justify-between bg-white rounded-md shadow-md">
         <img
-          alt="Logo"
+          alt="Website logo"
           className="h-16 w-16 mr-2 top-2 left-2"
           src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg"
           onClick={() => setCurrentPokemon(1)}
         />
         <div className="flex items-center">
           <button
-            className="p-2 transition ease-in-out delay-150 hover:-translate-x-1 rounded-full active:bg-slate-500 hover:bg-slate-300 hover:scale-110 duration-300"
+            className="p-2 transition ease-in-out hover:scale-150 duration-300 rounded-full"
             disabled={currentPokemon === 1}
+            aria-label="Previous Pokemon"
             onClick={() => {
               if (currentPokemon > 1) {
                 setCurrentPokemon(currentPokemon - 1);
               }
             }}
           >
-            <ArrowLeftIcon className="w-4 h-4 " />
+            <ArrowIcon direction="left" className="w-4 h-4 " />
           </button>
         </div>
         <SearchBar />
         <button
-          className="p-2 mr-2 transition ease-in-out delay-150 hover:translate-x-1 hover:scale-110 duration-300 hover:bg-slate-300 active:bg-slate-500 rounded-full"
+          className="p-2 mr-2 transition ease-in-out hover:scale-150 duration-300 rounded-full"
           disabled={currentPokemon === max}
+          aria-label="Next Pokemon"
           onClick={() => {
             if (currentPokemon < max) {
               setCurrentPokemon(currentPokemon + 1);
             }
           }}
         >
-          <ArrowRightIcon className="w-4 h-4 " />
+          <ArrowIcon direction="right" className="w-4 h-4 " />
         </button>
       </div>
     </div>
   );
 };
 
-function ArrowLeftIcon(
-  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
-) {
+type ArrowIconProps = JSX.IntrinsicAttributes &
+  SVGProps<SVGSVGElement> & { direction: "left" | "right" };
+
+function ArrowIcon({ direction, ...props }: ArrowIconProps) {
   return (
     <svg
       {...props}
@@ -72,47 +75,36 @@ function ArrowLeftIcon(
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="m12 19-7-7 7-7" />
-      <path d="M19 12H5" />
+      {direction === "left" ? (
+        <>
+          <path d="m12 19-7-7 7-7" />
+          <path d="M19 12H5" />
+        </>
+      ) : (
+        <>
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        </>
+      )}
     </svg>
   );
 }
 
-function ArrowRightIcon(
-  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
-) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M5 12h14" />
-      <path d="m12 5 7 7-7 7" />
-    </svg>
-  );
-}
-
-interface pokemonSearchBox {
+interface PokemonSearchBox {
   label: string;
   value: string;
 }
 
+const API_URL = "https://beta.pokeapi.co/graphql/v1beta";
+
 export function SearchBar() {
   const [open, setOpen] = useState(false);
-  const [searchList, setSearchList] = useState<pokemonSearchBox[]>([]);
+  const [searchList, setSearchList] = useState<PokemonSearchBox[]>([]);
   const { max, setCurrentPokemon } = useContext(PokemonContext);
 
   const fetchData = async () => {
     try {
-      const response = await fetch("https://beta.pokeapi.co/graphql/v1beta", {
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: {},
         body: JSON.stringify({
