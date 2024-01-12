@@ -78,3 +78,21 @@ interface Generation {
     back_shiny_female: string | null;
   };
 }
+
+export interface ISprites {
+  other: {
+    official_artwork: string;
+    [key: string]: string;
+  };
+  [key: string]: any;
+}
+
+export interface IPokemon {
+  pokemonSprite: ISprites[];
+  [key: string]: any;
+}
+
+export interface IForm {
+  form_name: string;
+  pokemonInfo: IPokemon;
+}

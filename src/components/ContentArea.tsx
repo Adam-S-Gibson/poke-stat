@@ -3,6 +3,9 @@ import { AlternativeForms } from "@/components/AlternativeForms";
 import { PokemonTitleCard } from "@/components/PokemonTitleCard";
 import { StatsCard } from "@/components/StatsCard";
 import {
+  IForm,
+  IPokemon,
+  ISprites,
   Pokemon,
   PokemonFormAggregateResponse,
 } from "@/types/pokemonDataTypes";
@@ -18,9 +21,12 @@ export const ContentArea = () => {
   >(undefined);
   const { setMax, currentPokemon } = useContext(PokemonContext);
 
+  const PLACEHOLDER_IMAGE = "https://placehold.co/400";
+  const API_URL = "https://beta.pokeapi.co/graphql/v1beta";
+
   const fetchData = async (pokemonToSearch: number) => {
     try {
-      const response = await fetch("https://beta.pokeapi.co/graphql/v1beta", {
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: {},
         body: JSON.stringify({
@@ -70,62 +76,79 @@ export const ContentArea = () => {
     }
   };
 
+  const createUpdatedSprites = (spritesJson: ISprites) => {
+    const officialArtwork = spritesJson.other["official-artwork"];
+    return {
+      ...spritesJson,
+      other: {
+        ...spritesJson.other,
+        official_artwork: officialArtwork,
+      },
+    };
+  };
+
+  const createUpdatedPokemon = (
+    fetchedPokemon: IPokemon,
+    updatedSprites: ISprites
+  ) => {
+    return {
+      ...fetchedPokemon,
+      pokemonSprite: updatedSprites,
+      pokemon_species_id: fetchedPokemon.pokemon_species_id,
+      id: fetchedPokemon.id,
+      name: fetchedPokemon.name,
+      pokemonStats: fetchedPokemon.pokemonStats,
+      pokemonTypes: fetchedPokemon.pokemonTypes,
+    };
+  };
+
+  const createFetchedPokemonAltForms = (forms: IForm[]) => {
+    return forms
+      .filter((form: { form_name: string }) => form.form_name !== "")
+      .map((form: { pokemonInfo: any; form_name: string }) => {
+        const pokemonInfo = form.pokemonInfo;
+        const spritesJson = pokemonInfo.pokemonSprite[0].sprites;
+        const updatedSprites = createUpdatedSprites(spritesJson);
+
+        return {
+          ...pokemonInfo,
+          pokemonSprite: updatedSprites,
+          formName: form.form_name,
+        };
+      });
+  };
+
+  const handleFetchDataResponse = (response: any) => {
+    if (response && response.data.pokemon.forms.length > 0) {
+      const fetchedPokemonForm = response.data.pokemon.forms[0];
+      const fetchedPokemon = fetchedPokemonForm.pokemonInfo;
+      setMax(response.data.pokemonCount.aggregate.count);
+
+      const fetchedPokemonAltForms = createFetchedPokemonAltForms(
+        response.data.pokemon.forms
+      );
+      setPokemonAltForms(fetchedPokemonAltForms);
+
+      if (pokemonCount === undefined) {
+        setPokemonCount(response.data.pokemonCount.aggregate.count);
+      }
+
+      if (fetchedPokemon.pokemonSprite.length > 0) {
+        const spritesJson = fetchedPokemon.pokemonSprite[0].sprites;
+        const updatedSprites = createUpdatedSprites(spritesJson);
+        const updatedPokemon = createUpdatedPokemon(
+          fetchedPokemon,
+          updatedSprites
+        );
+
+        setPokemon(updatedPokemon as unknown as Pokemon);
+      }
+    }
+  };
+
   useEffect(() => {
     fetchData(currentPokemon)
-      .then((response) => {
-        if (response && response.data.pokemon.forms.length > 0) {
-          const fetchedPokemonForm = response.data.pokemon.forms[0];
-          const fetchedPokemon = fetchedPokemonForm.pokemonInfo;
-          setMax(response.data.pokemonCount.aggregate.count);
-
-          const fetchedPokemonAltForms = response.data.pokemon.forms
-            .filter((form: { form_name: string }) => form.form_name !== "")
-            .map((form: { pokemonInfo: any; form_name: string }) => {
-              const pokemonInfo = form.pokemonInfo;
-              const spritesJson = pokemonInfo.pokemonSprite[0].sprites;
-
-              const officialArtwork = spritesJson.other["official-artwork"];
-              const updatedSprites = {
-                ...spritesJson,
-                other: {
-                  ...spritesJson.other,
-                  official_artwork: officialArtwork,
-                },
-              };
-
-              return {
-                ...pokemonInfo,
-                pokemonSprite: updatedSprites,
-                formName: form.form_name,
-              };
-            });
-
-          setPokemonAltForms(fetchedPokemonAltForms);
-
-          if (pokemonCount === undefined) {
-            setPokemonCount(response.data.pokemonCount.aggregate.count);
-          }
-
-          if (fetchedPokemon.pokemonSprite.length > 0) {
-            const spritesJson = fetchedPokemon.pokemonSprite[0].sprites;
-            const officialArtwork = spritesJson.other["official-artwork"];
-            const updatedSprites = {
-              ...spritesJson,
-              other: {
-                ...spritesJson.other,
-                official_artwork: officialArtwork,
-              },
-            };
-
-            const updatedPokemon = {
-              ...fetchedPokemon,
-              pokemonSprite: updatedSprites,
-            };
-
-            setPokemon(updatedPokemon);
-          }
-        }
-      })
+      .then(handleFetchDataResponse)
       .catch(console.error);
   }, [currentPokemon]);
 
@@ -135,8 +158,8 @@ export const ContentArea = () => {
         <div className="md:w-1/2 md:p-2">
           <PokemonTitleCard
             imageSrc={
-              pokemon?.pokemonSprite.other.official_artwork.front_default ||
-              "https://placehold.co/400"
+              pokemon?.pokemonSprite.other.official_artwork.front_default ??
+              PLACEHOLDER_IMAGE
             }
             pokemonName={pokemon?.name}
             pokemonTypes={pokemon?.pokemonTypes.map((type) => {
@@ -153,8 +176,8 @@ export const ContentArea = () => {
           images={pokemonAltForms?.map((pokemon) => {
             return {
               imageUrl:
-                pokemon.pokemonSprite.other.official_artwork.front_default ||
-                "https://placehold.co/400",
+                pokemon.pokemonSprite.other.official_artwork.front_default ??
+                PLACEHOLDER_IMAGE,
               imageAltText: `${pokemon.formName}`,
             };
           })}
